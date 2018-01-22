@@ -79,7 +79,7 @@
         <hr class="star-dark mb-5">
         <div class="row">
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+            <a class="portfolio-item d-block mx-auto" onclick="modal1Click()" href="#portfolio-modal-1">
               <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
                 <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
                   <i class="fa fa-search-plus fa-3x"></i>
@@ -381,6 +381,12 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
+
+    <script type="text/javascript">
+      function modal1Click() {
+         gtag('send', 'event', 'Projetos', 'Clique', 'Extra');
+      }
+    </script>
 
   </body>
 
