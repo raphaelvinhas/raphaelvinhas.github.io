@@ -384,7 +384,10 @@
 
     <script type="text/javascript">
       function modal1Click() {
-         gtag('send', 'event', 'Projetos', 'Clique', 'Extra');
+        gtag('event', 'Click', {
+             'event_category': 'Projects',
+             'event_label': 'Extra'
+            });
       }
     </script>
 
