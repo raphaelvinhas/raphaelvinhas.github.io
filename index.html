@@ -166,7 +166,7 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <p>Currently available for freelancing, contact me for infos</p>
-            <p><a class="primary-link" href="mailto:raphael.vinhas@gmail.com" target="_top">raphael.vinhas@gmail.com</a></p>
+            <p><a class="primary-link" href="mailto:raphael.vinhas@gmail.com" target="_top" onclick="emailClick()">raphael.vinhas@gmail.com</a></p>
           </div>
         </div>
       </div>
@@ -496,26 +496,36 @@
     <script type="text/javascript">
       function facebookClick() {
         gtag('event', 'Facebook', {
-             'event_category': 'Projects',
+             'event_category': 'Social',
              'event_label': 'Facebook'
             });
       }
       function twitterClick() {
         gtag('event', 'Twitter', {
-             'event_category': 'Projects',
+             'event_category': 'Social',
              'event_label': 'Twitter'
             });
       }
       function linkedinClick() {
         gtag('event', 'Linkedin', {
-             'event_category': 'Projects',
+             'event_category': 'Social',
              'event_label': 'Linkedin'
             });
       }
       function githubClick() {
         gtag('event', 'Github', {
-             'event_category': 'Projects',
+             'event_category': 'Social',
              'event_label': 'Github'
+            });
+      }
+    </script>
+
+    <!-- Analytics Mail Clicks -->
+    <script type="text/javascript">
+      function emailClick() {
+        gtag('event', 'E-mail', {
+             'event_category': 'Social',
+             'event_label': 'E-mail'
             });
       }
     </script>
