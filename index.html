@@ -18,6 +18,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <title>Raphael Vinhas</title>
 
     <!-- Bootstrap core CSS -->
@@ -381,6 +399,55 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
+
+    <script type="text/javascript">
+      if (navigator.serviceWorker.controller) {
+        console.log('[PWA Builder] active service worker found, no need to register')
+      } else {
+        //Register the ServiceWorker
+        navigator.serviceWorker.register('pwabuilder-sw.js', {
+          scope: './'
+        }).then(function(reg) {
+          console.log('Service worker has been registered for scope:'+ reg.scope);
+        });
+      }
+    </script>
+
+    <script type="text/javascript">
+      //This is the "Offline page" service worker
+
+      //Install stage sets up the offline page in the cahche and opens a new cache
+      self.addEventListener('install', function(event) {
+        var offlinePage = new Request('offline.html');
+        event.waitUntil(
+        fetch(offlinePage).then(function(response) {
+          return caches.open('pwabuilder-offline').then(function(cache) {
+            console.log('[PWA Builder] Cached offline page during Install'+ response.url);
+            return cache.put(offlinePage, response);
+          });
+        }));
+      });
+
+      //If any fetch fails, it will show the offline page.
+      //Maybe this should be limited to HTML documents?
+      self.addEventListener('fetch', function(event) {
+        event.respondWith(
+          fetch(event.request).catch(function(error) {
+              console.error( '[PWA Builder] Network request Failed. Serving offline page ' + error );
+              return caches.open('pwabuilder-offline').then(function(cache) {
+                return cache.match('offline.html');
+            });
+          }));
+      });
+
+      //This is a event that can be fired from your page to tell the SW to update the offline page
+      self.addEventListener('refreshOffline', function(response) {
+        return caches.open('pwabuilder-offline').then(function(cache) {
+          console.log('[PWA Builder] Offline page updated from refreshOffline event: '+ response.url);
+          return cache.put(offlinePage, response);
+        });
+      });
+    </script>
 
     <!-- Analytics Projects Clicks -->
     <script type="text/javascript">
